@@ -1,0 +1,12 @@
+{
+    "editor.defaultFormatter": "Angular.ng-template",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.fontFamily": "'Oswald', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontSize": 15,
+    "editor.lineHeight": 1.5
+}

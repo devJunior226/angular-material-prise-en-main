@@ -1,0 +1,85 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header class="card-header">
+      <mat-card-title>Students list</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <!-- formulaire de rechercher -->
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Search a student</mat-label>
+          <input matInput (change)="searchStudents($event)" />
+        </mat-form-field>
+      </form>
+
+      <!-- on fait le lien entre le tableau et myDataSource -->
+      <table
+        matSort
+        mat-table
+        [dataSource]="myDataSource"
+        class="mat-elevation-z3"
+      >
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let student">{{ student.id }}</td>
+        </ng-container>
+
+        <!-- firstName Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</th>
+          <td mat-cell *matCellDef="let student">{{ student.firstName }}</td>
+        </ng-container>
+
+        <!-- lastName Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</th>
+          <td mat-cell *matCellDef="let student">{{ student.lastName }}</td>
+        </ng-container>
+
+        <!-- payments Column -->
+        <ng-container matColumnDef="payments">
+          <th mat-header-cell *matHeaderCellDef>Payments</th>
+          <td mat-cell *matCellDef="let student">
+            <button
+              (click)="getPayments(student)"
+              mat-raised-button
+              color="primary"
+            >
+              Payments
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Definition matricielle -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-divider></mat-divider>
+
+      <!-- 
+        Paginator
+        Il faut importer MatPaginatorModule et MatPaginator 
+        depuis material/paginator
+       -->
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 15, 20, 50]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+
+      <!-- 
+        Trier les elements par colonne
+        Il faut importer MatSort depuis material/sort
+        Puis appeler matSort dans la ligne de <table ....
+        Ensuite, pour chaque header, il faut appeler mat-sort-header
+        a importer MatSortHeader depuis material/sort
+        Enfin, dans la partie TypeScript, il faut encore appeler MatSort
+        dans un @ViewChild
+        Puis l'initialiser dans le ngAfterInit()
+       -->
+    </mat-card-content>
+  </mat-card>
+</div>

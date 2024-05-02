@@ -1,0 +1,89 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <!-- spacer place les elements a la fin -->
+  <span class="spacer"></span>
+  <button mat-button routerLink="/admin/home">
+    Home
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-button routerLink="/admin/profil">
+    Profil
+    <mat-icon>person</mat-icon>
+  </button>
+
+  <!-- menu deroulant
+        La liaison des elements deroulants
+        [matMenuTriggerFor]="sousMenu"
+        #sousMenu="matMenu"
+    -->
+  <button
+    *ngIf="authService.roles.includes('ADMIN')"
+    mat-button
+    [matMenuTriggerFor]="sousMenu"
+  >
+    Actions
+    <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #sousMenu="matMenu">
+    <button mat-menu-item routerLink="/admin/load-students">
+      Load Students
+    </button>
+    <button mat-menu-item routerLink="/admin/load-payments">
+      Load Payments
+    </button>
+  </mat-menu>
+
+  <!-- Instance du user connecté -->
+  <button mat-button *ngIf="authService.authenticated == true">
+    {{ authService.username }}
+  </button>
+  <button mat-raised-button color="accent" (click)="onLogout()">Log out</button>
+</mat-toolbar>
+
+<!-- 
+    Sidemenu;
+    Importer MatSidenavModule depuis material/sidenav
+    ou importer MatNavList si on veut utiliser les listes
+
+    ## La liaison au toggle est effectuée par ces deux elements
+      <button mat-icon-button (click)="drawer.toggle()">
+        #drawer
+-->
+<mat-drawer-container>
+  <!-- elements de menus -->
+  <mat-drawer #drawer mode="side" position="start" opened="true">
+    <!-- <button mat-button>
+            Dashboard
+            <mat-icon>dashboard</mat-icon>
+        </button> -->
+    <mat-nav-list>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/students">
+          <mat-icon>group</mat-icon>
+          Students
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/payments">
+          <mat-icon>payment</mat-icon>
+          Payments
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <!-- contenu -->
+  <mat-drawer-content>
+    <div style="height: 100vh">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
